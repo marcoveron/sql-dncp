@@ -1,2 +1,2 @@
 -- exercise: More aggregation
-select firstname, surname, joindate from cd.members ORDER BY joindate DESC LIMIT 1;
+select firstname, surname, joindate from cd.members WHERE joindate = (SELECT MAX(joindate) FROM cd.members);
