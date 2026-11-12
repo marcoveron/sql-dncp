@@ -1,2 +1,11 @@
--- exercise: Produce a list of all members, along with their recommender
-SELECT mem1.firstname as memfname, mem1.surname as memsname, mem2.firstname as recfname, mem2.surname as recsname FROM cd.members mem1 LEFT JOIN cd.members mem2 on mem1.recommendedby = mem2.memid ORDER BY memsname, memfname;
+-- exercise: Produce a list of costly bookings
+
+SELECT mem.firstname || ' ' || mem.surname, fac.name, 
+	CASE WHEN mem.memid = 0 THEN fac.guestcost * bkg.slots 
+	ELSE fac.membercost * bkg.slots END AS cost
+FROM cd.bookings bkg
+JOIN cd.facilities fac ON bkg.facid = fac.facid
+JOIN cd.members mem ON bkg.memid = mem.memid
+WHERE bkg.starttime >= '2012-09-14 00:00:00' AND bkg.starttime <= '2012-09-15 00:00:00'
+	AND (CASE WHEN mem.memid = 0 THEN fac.guestcost * bkg.slots 
+	ELSE fac.membercost * bkg.slots END) > 30;
