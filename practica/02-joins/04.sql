@@ -1,0 +1,2 @@
+-- exercise: Produce a list of all members, along with their recommender
+SELECT mem1.firstname as memfname, mem1.surname as memsname, mem2.firstname as recfname, mem2.surname as recsname FROM cd.members mem1 LEFT JOIN cd.members mem2 on mem1.recommendedby = mem2.memid ORDER BY memsname, memfname;
