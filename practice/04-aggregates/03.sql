@@ -1,0 +1,2 @@
+-- exercise: Count the number of recommendations each member makes.
+SELECT members.recommendedby, count(*) FROM cd.members WHERE members.recommendedby IS NOT NULL GROUP BY recommendedby ORDER BY recommendedby;
